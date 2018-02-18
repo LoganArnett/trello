@@ -217,6 +217,14 @@ Trello.prototype.updateCard = function (cardId, field, value, callback) {
     return makeRequest(rest.put, this.uri + '/1/cards/' + cardId + '/' + field, {query: query}, callback);
 };
 
+Trello.prototype.updateCardMultipleFields = function (cardId, fields, callback) {
+    var query = this.createQuery();
+
+    Object.assign(query, fields);
+
+    return makeRequest(rest.put, this.uri + '/1/cards/' + cardId, {query: query}, callback);
+};
+
 Trello.prototype.updateChecklist = function (checklistId, field, value, callback) {
     var query = this.createQuery();
     query.value = value;
@@ -267,7 +275,7 @@ Trello.prototype.getCardsOnBoard = function (boardId, callback) {
 };
 
 Trello.prototype.getCardsOnBoardWithExtraParams = function (boardId, extraParams, callback) {
-    var query = this.createQuery();    
+    var query = this.createQuery();
     Object.assign(query, extraParams);
 
     return makeRequest(rest.get, this.uri + '/1/boards/' + boardId + '/cards', {query: query}, callback);
@@ -278,7 +286,7 @@ Trello.prototype.getCardsOnList = function (listId, callback) {
 };
 
 Trello.prototype.getCardsOnListWithExtraParams = function (listId, extraParams, callback) {
-    var query = this.createQuery();    
+    var query = this.createQuery();
     Object.assign(query, extraParams);
 
     return makeRequest(rest.get, this.uri + '/1/lists/' + listId + '/cards', {query: query}, callback);
